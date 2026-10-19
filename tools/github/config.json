@@ -1,6 +1,7 @@
 {
-  "$comment": "Configuracao do npm run sync:github. organizations: organizacoes com projetos pessoais (alem das que tiverem participacao publica). hiddenRepos: repositorios que nao aparecem no portfolio, por nome ou dono/nome.",
+  "$comment": "Configuracao do npm run sync:github. organizations: organizacoes com projetos pessoais (alem das com participacao publica); nome inexistente e ignorado, entao pode listar o nome atual e o futuro. hiddenOrganizations: nunca aparecem. hiddenRepos: repositorios que nao aparecem, por nome ou dono/nome.",
   "user": "DaviCastr",
-  "organizations": ["ExpenseManagerAPP"],
+  "organizations": ["ExpenseManagerAPP", "Bendita-Look", "BenditaLook"],
+  "hiddenOrganizations": ["cookie-news"],
   "hiddenRepos": ["davicastr.github.io", "SAP-UI5-Portfolio"]
 }

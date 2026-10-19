@@ -242,7 +242,12 @@ Configuracao em `tools/github/config.json`:
   lista (com a etiqueta da organizacao) e cada uma ganha um card na secao "Organizacoes".
   Organizacoes com participacao **publica** entram sozinhas; as privadas (padrao do
   GitHub) precisam estar nesta lista, porque a API publica nao as enxerga.
+- `hiddenOrganizations`: organizacoes que nunca aparecem (ex.: trabalho de faculdade),
+  mesmo com participacao publica.
 - `hiddenRepos`: repositorios que nao aparecem no portfolio, por nome ou `dono/nome`.
+
+Nome de organizacao que nao existe e ignorado com aviso (nao derruba o deploy): ao
+renomear uma organizacao, deixe o nome atual e o novo na lista ate a troca acontecer.
 
 - Grava `content/github.json` (perfil, data da sincronizacao, nº de repositorios).
 - Atualiza `stars`, `forks`, `language` e `updatedAt` dos projetos cujo `repo` aponte para

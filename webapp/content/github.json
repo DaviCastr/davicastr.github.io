@@ -1,9 +1,17 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-19T12:17:28.698Z",
-  "repoCount": 56,
+  "syncedAt": "2026-10-19T14:34:08.647Z",
+  "repoCount": 57,
   "repos": [
+    {
+      "name": "DaviCastr",
+      "url": "https://github.com/DaviCastr/DaviCastr",
+      "description": "Olá eu sou Davi Castro",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-10-19T14:32:58Z"
+    },
     {
       "name": "expensemanagerapp.github.io",
       "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp.github.io",
@@ -18,22 +26,25 @@
     {
       "name": "expensemanagerapp",
       "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp",
+      "description": "Expense Manager App",
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
       "pushedAt": "2026-10-19T02:34:39Z",
+      "homepage": "https://expensemanagerapp.github.io/",
+      "siteUrl": "https://expensemanagerapp.github.io/",
       "owner": "ExpenseManagerAPP"
     },
     {
-      "name": "SAP-UI5-BenditaLook",
-      "url": "https://github.com/DaviCastr/SAP-UI5-BenditaLook",
-      "description": "Bendita Look Store",
+      "name": "bendita-look.github.io",
+      "url": "https://github.com/Bendita-Look/bendita-look.github.io",
       "language": "TypeScript",
-      "stars": 1,
+      "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-10-18T18:18:16Z",
-      "homepage": "https://bendita-look.github.io/Store",
-      "siteUrl": "https://bendita-look.github.io/Store"
+      "pushedAt": "2026-10-18T18:19:42Z",
+      "homepage": "https://bendita-look.github.io/",
+      "siteUrl": "https://bendita-look.github.io/",
+      "owner": "Bendita-Look"
     },
     {
       "name": "SAP-UI5-ExpenseManager",
@@ -58,12 +69,16 @@
       "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
     {
-      "name": "DaviCastr",
-      "url": "https://github.com/DaviCastr/DaviCastr",
-      "description": "Olá eu sou Davi Castro",
-      "stars": 0,
+      "name": "bendita-look",
+      "url": "https://github.com/Bendita-Look/bendita-look",
+      "description": "Bendita Look Store",
+      "language": "TypeScript",
+      "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-15T17:59:54Z"
+      "pushedAt": "2026-10-16T00:14:32Z",
+      "homepage": "https://bendita-look.github.io",
+      "siteUrl": "https://bendita-look.github.io",
+      "owner": "Bendita-Look"
     },
     {
       "name": "SAP-UI5-Three-Clues-Game",
@@ -529,7 +544,7 @@
       "name": "Bendita Look",
       "description": "Bendita Look Store",
       "url": "https://github.com/Bendita-Look",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/343062941?s=400&u=42d7638e150c313ccde94078ed42f1e61c07255f&v=4",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/343062941?v=4",
       "siteUrl": "https://bendita-look.github.io/",
       "repoCount": 2
     }

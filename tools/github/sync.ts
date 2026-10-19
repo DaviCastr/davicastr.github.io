@@ -16,6 +16,8 @@ import { readContentFile, readFlag, REPO_ROOT, run, writeContentFile } from "../
 interface SyncConfig {
     user?: string;
     organizations?: string[];
+    /** Organizacoes que nunca aparecem (mesmo com participacao publica). */
+    hiddenOrganizations?: string[];
     hiddenRepos?: string[];
 }
 
@@ -43,7 +45,8 @@ async function readConfig(): Promise<SyncConfig> {
  *      cujo campo "repo" aponte para um repositorio do usuario;
  *   3. mantem `repoCount` igual ao tamanho da lista gravada.
  *
- * Organizacoes e repositorios ocultos vem de tools/github/config.json. A lista
+ * Organizacoes e repositorios ocultos vem de tools/github/config.json
+ * (`organizations`, `hiddenOrganizations`, `hiddenRepos`). A lista
  * de organizacoes e somada as que tiverem participacao PUBLICA (a API publica
  * nao enxerga participacao privada, que e o padrao do GitHub).
  *
@@ -94,6 +97,7 @@ async function main(): Promise<void> {
     const publicOrgs = await getJson<{ login: string }[]>(`${GITHUB_API}/users/${user}/orgs`, token).catch(
         () => []
     );
+    const hiddenOrgs = new Set((config.hiddenOrganizations ?? []).map((login) => login.toLowerCase()));
     const orgLogins = [
         ...new Map(
             [...(config.organizations ?? []), ...publicOrgs.map((org) => org.login)].map((login) => [
@@ -101,16 +105,35 @@ async function main(): Promise<void> {
                 login
             ])
         ).values()
-    ];
-    const organizations = await Promise.all(
-        orgLogins.map(async (login) => ({
-            org: await getJson<GhOrg>(`${GITHUB_API}/orgs/${login}`, token),
-            repos: await getJson<GhRepo[]>(
-                `${GITHUB_API}/orgs/${login}/repos?per_page=100&sort=pushed`,
-                token
-            )
-        }))
+    ].filter((login) => !hiddenOrgs.has(login.toLowerCase()));
+
+    // Organizacao inexistente (nome antigo ou ainda nao criado, ex.: rename de
+    // "Bendita-Look" para "BenditaLook") e ignorada com aviso - nao derruba o
+    // deploy. A lista pode ter os dois nomes; o login real tira a duplicata.
+    const fetched = await Promise.all(
+        orgLogins.map(async (login) => {
+            try {
+                return {
+                    org: await getJson<GhOrg>(`${GITHUB_API}/orgs/${login}`, token),
+                    repos: await getJson<GhRepo[]>(
+                        `${GITHUB_API}/orgs/${login}/repos?per_page=100&sort=pushed`,
+                        token
+                    )
+                };
+            } catch (error) {
+                console.warn(`  ! organizacao "${login}" ignorada: ${(error as Error).message}`);
+                return undefined;
+            }
+        })
     );
+    const organizations = [
+        ...new Map(
+            fetched
+                .filter((item): item is NonNullable<typeof item> => !!item)
+                .filter(({ org }) => !hiddenOrgs.has(org.login.toLowerCase()))
+                .map((item) => [item.org.login.toLowerCase(), item])
+        ).values()
+    ];
 
     const github = mapGitHubInfo(profile, repos, undefined, {
         organizations,
