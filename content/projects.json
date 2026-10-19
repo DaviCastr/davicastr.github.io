@@ -23,7 +23,89 @@
       "CAP",
       "Mobile"
     ],
-    "featured": true
+    "featured": true,
+    "current": true,
+    "icon": "iphone"
+  },
+  {
+    "id": "curso-sap-abap-rap",
+    "name": {
+      "pt": "Curso: Destravando seu desenvolvimento em SAP ABAP RAP",
+      "en": "Course: Unlocking your SAP ABAP RAP development"
+    },
+    "role": {
+      "pt": "Autor e instrutor",
+      "en": "Author and instructor"
+    },
+    "description": {
+      "pt": "Curso prático de SAP ABAP RAP para desenvolvedores SAP, com 18 módulos e 55 aulas: um app de viagens e reservas construído do protótipo managed ao draft, seguindo as boas práticas da SAP.",
+      "en": "Hands-on SAP ABAP RAP course for SAP developers, with 18 modules and 55 lessons: a travel and booking app built from the managed prototype to draft, following SAP best practices."
+    },
+    "highlights": [
+      {
+        "pt": "Tabelas, dados de exemplo e CDS de interface, projeção, metadata, serviço, autorização e comportamento.",
+        "en": "Tables, sample data and interface, projection, metadata, service, authorization and behavior CDS."
+      },
+      {
+        "pt": "EML na prática: leitura (inclusive por associação), criação, modificação, exclusão e tratamento de mensagens.",
+        "en": "EML in practice: reading (including by association), create, update, delete and message handling."
+      },
+      {
+        "pt": "Autorização, determinações, validações e ações (internas, instance features, aceitar e rejeitar viagem), com debug.",
+        "en": "Authorization, determinations, validations and actions (internal, instance features, accept and reject travel), with debugging."
+      },
+      {
+        "pt": "Draft (rascunho) em viagem e reserva, com teste das validações no rascunho.",
+        "en": "Draft for travel and booking, including testing validations in draft."
+      }
+    ],
+    "url": "https://hotmart.com/pt-br/marketplace/produtos/destravando-seu-desenvolvimento-em-sap-abap-rap/X106277760C",
+    "image": "images/projects/curso-sap-rap.png",
+    "icon": "education",
+    "stack": [
+      "SAP ABAP RAP",
+      "CDS Views",
+      "EML",
+      "OData V4",
+      "SAP Fiori Elements"
+    ],
+    "tags": [
+      "SAP",
+      "RAP",
+      "ABAP",
+      "Curso"
+    ],
+    "featured": true,
+    "current": true
+  },
+  {
+    "id": "comgas-ams",
+    "name": {
+      "pt": "Sustentação SAP ECC, CCS e CRM - Comgás",
+      "en": "SAP ECC, CCS and CRM support - Comgás"
+    },
+    "role": {
+      "pt": "Consultor SAP ABAP",
+      "en": "SAP ABAP Consultant"
+    },
+    "description": {
+      "pt": "Projeto AMS de sustentação dos ambientes SAP ECC, CCS (Customer Care and Service) e CRM da Comgás, com correção de incidentes e melhorias.",
+      "en": "AMS project supporting the SAP ECC, CCS (Customer Care and Service) and CRM landscapes at Comgás, handling incidents and enhancements."
+    },
+    "stack": [
+      "SAP ABAP",
+      "SAP ECC",
+      "SAP CCS",
+      "SAP CRM"
+    ],
+    "tags": [
+      "SAP",
+      "AMS",
+      "ABAP",
+      "CRM"
+    ],
+    "featured": true,
+    "icon": "headset"
   },
   {
     "id": "gestao-cartoes",
@@ -61,7 +143,8 @@
       "UI5",
       "Pessoal"
     ],
-    "featured": true
+    "featured": true,
+    "icon": "credit-card"
   },
   {
     "id": "3coracoes-manutencao",
@@ -70,8 +153,8 @@
       "en": "S/4HANA development and maintenance - 3Corações"
     },
     "role": {
-      "pt": "Accenture Brasil",
-      "en": "Accenture Brasil"
+      "pt": "Consultor SAP ABAP / Fiori",
+      "en": "SAP ABAP / Fiori Consultant"
     },
     "period": {
       "from": "2023-08",
@@ -92,7 +175,9 @@
       "Fiori",
       "AMS"
     ],
-    "featured": true
+    "featured": true,
+    "company": "Accenture Brasil",
+    "icon": "wrench"
   },
   {
     "id": "3coracoes-implantacao",
@@ -101,8 +186,8 @@
       "en": "S/4HANA implementation - 3Corações"
     },
     "role": {
-      "pt": "GFX Consultoria",
-      "en": "GFX Consultoria"
+      "pt": "Consultor SAP ABAP / Fiori",
+      "en": "SAP ABAP / Fiori Consultant"
     },
     "period": {
       "from": "2022-09",
@@ -123,7 +208,9 @@
       "Fiori",
       "Implantação"
     ],
-    "featured": true
+    "featured": true,
+    "company": "GFX Consultoria",
+    "icon": "factory"
   },
   {
     "id": "gfx-ams",
@@ -132,8 +219,8 @@
       "en": "Enhancements and maintenance for GFX Consultoria clients"
     },
     "role": {
-      "pt": "GFX Consultoria",
-      "en": "GFX Consultoria"
+      "pt": "Consultor SAP ABAP",
+      "en": "SAP ABAP Consultant"
     },
     "period": {
       "from": "2018-11",
@@ -151,6 +238,8 @@
       "SAP",
       "AMS",
       "ABAP"
-    ]
+    ],
+    "company": "GFX Consultoria",
+    "icon": "inspection"
   }
 ]

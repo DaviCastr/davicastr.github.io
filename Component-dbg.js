@@ -1,12 +1,12 @@
-sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "./service/LocaleService", "./service/ThemeService"], function (UIComponent, __models, ___service_LocaleService, ___service_ThemeService) {
+sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "./util/LocaleService", "./util/ThemeService"], function (UIComponent, __models, ___util_LocaleService, ___util_ThemeService) {
   "use strict";
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
   }
   const models = _interopRequireDefault(__models);
-  const LocaleService = ___service_LocaleService["LocaleService"];
-  const ThemeService = ___service_ThemeService["ThemeService"];
+  const LocaleService = ___util_LocaleService["LocaleService"];
+  const ThemeService = ___util_ThemeService["ThemeService"];
   /**
    * Componente raiz do portfolio.
    *

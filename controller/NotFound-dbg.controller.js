@@ -1,17 +1,18 @@
-sap.ui.define(["./BaseController"], function (__BaseController) {
+sap.ui.define(["./BaseController", "../model/constants"], function (__BaseController, ___model_constants) {
   "use strict";
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
   }
   const BaseController = _interopRequireDefault(__BaseController);
-  /** Controller da rota de fallback ("catchAll"). */
+  const Route = ___model_constants["Route"];
+  /** Pagina 404. */
   const NotFoundController = BaseController.extend("webapp.controller.NotFoundController", {
-    /** Volta para a home. */onHomePress: function _onHomePress() {
-      this.navigate("home");
+    onHomePress: function _onHomePress() {
+      this.navigate(Route.HOME);
     },
-    /** Abre o cliente de e-mail com o endereco do portfolio. */onContactPress: function _onContactPress() {
-      window.location.href = `mailto:${this.content().profile.email}`;
+    onContactPress: function _onContactPress() {
+      this.onEmailPress();
     }
   });
   return NotFoundController;

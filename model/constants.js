@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";const e={CONTENT:"content",UI:"ui",DEVICE:"device"};const t={HOME:"home",ABOUT:"about",EXPERIENCE:"experience",SKILLS:"skills",PROJECTS:"projects",CERTIFICATES:"certificates",EDUCATION:"education",CV:"cv"};const c={ALL:"all",VALID:"valid",JOB:"job",PROJECT:"project"};var o={__esModule:true};o.Model=e;o.Route=t;o.Filter=c;return o});
+//# sourceMappingURL=constants.js.map

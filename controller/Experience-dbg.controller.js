@@ -1,33 +1,31 @@
-sap.ui.define(["./BaseController"], function (__BaseController) {
+sap.ui.define(["./BaseController", "../model/constants", "../model/content/filters"], function (__BaseController, ___model_constants, ___model_content_filters) {
   "use strict";
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
   }
   const BaseController = _interopRequireDefault(__BaseController);
-  /**
-   * Controller da linha do tempo profissional.
-   *
-   * O filtro e feito aqui (e nao com binding filters) para que a mesma logica
-   * possa ser reutilizada pela geracao do PDF do curriculo.
-   */
+  const Model = ___model_constants["Model"];
+  const Filter = ___model_constants["Filter"];
+  const ALL = ___model_content_filters["ALL"];
+  const experienceTimeline = ___model_content_filters["experienceTimeline"];
+  /** Experiencia: linha do tempo de vinculos e projetos (filtro tudo / vinculos / projetos). */
   const ExperienceController = BaseController.extend("webapp.controller.ExperienceController", {
     onInit: function _onInit() {
-      this.applyFilter("all");
+      this.applyFilter(ALL);
     },
-    /** Todos os registros (vínculos e projetos). */onAllPress: function _onAllPress() {
-      this.applyFilter("all");
+    onAllPress: function _onAllPress() {
+      this.applyFilter(ALL);
     },
-    /** Apenas vínculos formais. */onJobPress: function _onJobPress() {
-      this.applyFilter("job");
+    onJobPress: function _onJobPress() {
+      this.applyFilter(Filter.JOB);
     },
-    /** Apenas projetos específicos. */onProjectPress: function _onProjectPress() {
-      this.applyFilter("project");
+    onProjectPress: function _onProjectPress() {
+      this.applyFilter(Filter.PROJECT);
     },
     applyFilter: function _applyFilter(kind) {
-      const items = kind === "all" ? this.content().experiences : this.content().experiences.filter(item => (item.kind ?? "job") === kind);
-      this.model("content")?.setProperty("/filteredExperiences", items);
-      this.model("ui")?.setProperty("/experienceKind", kind);
+      this.model(Model.CONTENT)?.setProperty("/filteredExperiences", experienceTimeline(this.content().experiences, this.content().projects, kind));
+      this.model(Model.UI)?.setProperty("/experienceKind", kind);
     }
   });
   return ExperienceController;

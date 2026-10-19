@@ -1,2 +1,2 @@
-sap.ui.define(["./BaseController"],function(e){"use strict";function t(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const n=t(e);const o=n.extend("webapp.controller.EducationController",{onDocumentPress:function e(t){const n=this.sourceContext(t);this.openLink(n?.getProperty("url"))}});return o});
+sap.ui.define(["./BaseController"],function(e){"use strict";function n(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const t=n(e);const o=t.extend("webapp.controller.EducationController",{onDocumentPress:function e(n){this.onLinkPress(n)}});return o});
 //# sourceMappingURL=Education.controller.js.map

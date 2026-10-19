@@ -1,2 +1,2 @@
-sap.ui.define(["./BaseController"],function(e){"use strict";function n(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const o=n(e);const t=o.extend("webapp.controller.NotFoundController",{onHomePress:function e(){this.navigate("home")},onContactPress:function e(){window.location.href=`mailto:${this.content().profile.email}`}});return t});
+sap.ui.define(["./BaseController","../model/constants"],function(n,t){"use strict";function e(n){return n&&n.__esModule&&typeof n.default!=="undefined"?n.default:n}const o=e(n);const s=t["Route"];const r=o.extend("webapp.controller.NotFoundController",{onHomePress:function n(){this.navigate(s.HOME)},onContactPress:function n(){this.onEmailPress()}});return r});
 //# sourceMappingURL=NotFound.controller.js.map

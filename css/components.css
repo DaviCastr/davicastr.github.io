@@ -821,6 +821,18 @@
     color: var(--pf-text);
 }
 
+/* Etiqueta "Projeto" nos itens da linha do tempo que vem de projects.json. */
+.pf-tl-item__kind {
+    padding: 1px 8px;
+    border-radius: var(--pf-radius-pill);
+    background: color-mix(in srgb, var(--pf-accent) 14%, var(--pf-surface));
+    color: var(--pf-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
 .pf-tl-item__company {
     font-size: var(--pf-font-sm);
     color: var(--pf-text-muted);
@@ -865,6 +877,13 @@
     font-weight: 700;
     color: var(--pf-primary);
     white-space: nowrap;
+}
+
+/* O HBox embrulha cada filho num .sapMFlexItem, e e ele que encolhia: "5/5"
+   quebrava em duas linhas ao lado de nomes longos. */
+.pf-skill .sapMFlexItem:has(> .pf-skill__level) {
+    flex-shrink: 0;
+    margin-left: auto;
 }
 
 .pf-skill__desc {
@@ -914,6 +933,19 @@
     box-shadow: var(--pf-shadow-2);
 }
 
+/* Capa ate as bordas do card (anula o padding) e no topo. */
+.pf-project .pf-project__cover {
+    display: block;
+    width: calc(100% + 2 * var(--pf-card-padding));
+    max-width: none;
+    margin: calc(-1 * var(--pf-card-padding)) calc(-1 * var(--pf-card-padding)) 0;
+    /* 3:1 = proporcao dos banners de curso (1920x640): mostra a arte inteira. */
+    aspect-ratio: 3 / 1;
+    object-fit: cover;
+    border-radius: calc(var(--pf-radius-lg) - 1px) calc(var(--pf-radius-lg) - 1px) 0 0;
+    border-bottom: 1px solid var(--pf-border);
+}
+
 .pf-project__head {
     display: flex;
     align-items: center;
@@ -930,6 +962,60 @@
     border-radius: var(--pf-radius-sm);
     background: var(--pf-surface-sunken);
     color: var(--pf-text);
+}
+
+.pf-project__title {
+    gap: 2px;
+    min-width: 0;
+}
+
+.pf-project__meta {
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    color: var(--pf-primary);
+}
+
+.pf-project__badge {
+    padding: 3px 10px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-primary-soft);
+    color: var(--pf-primary);
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* "Em andamento": ambar com um ponto pulsando discreto. */
+.pf-project__badge--live {
+    position: relative;
+    padding-left: 22px;
+    background: color-mix(in srgb, var(--pf-accent) 14%, var(--pf-surface));
+    color: var(--pf-accent);
+}
+
+.pf-project__badge--live::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 9px;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--pf-accent);
+    animation: pf-live 1.8s ease-in-out infinite;
+}
+
+@keyframes pf-live {
+    50% {
+        opacity: 0.35;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pf-project__badge--live::before {
+        animation: none;
+    }
 }
 
 .pf-project__name {
@@ -1126,13 +1212,64 @@
     transform-origin: top center;
 }
 
+/*
+ * Certificado inteiro em paisagem (JPG local, ex.: cursos da Moovi): `cover`
+ * cortaria as laterais e o titulo. Mostra a imagem toda, com margem, sobre o
+ * fundo neutro do card (funciona com certificado claro ou escuro). Os badges do
+ * Credly sao URLs remotas sem extensao e seguem com `cover`.
+ */
+.pf-cert__media:has(.pf-cert__image[src$=".jpg"]) {
+    padding: var(--pf-space-3);
+    box-sizing: border-box;
+    background: var(--pf-surface-sunken);
+}
+
+/* Certificado como "documento": inteiro, com sombra leve - serve para os
+   claros (Lab2Learn) e os escuros (Moovi). */
+.pf-cert__image[src$=".jpg"] {
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.18));
+}
+
+/* Capa gerada (sem imagem): degrade da marca, titulo grande e emissor. */
 .pf-cert__fallback {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--pf-text-muted);
-    text-align: center;
+    justify-content: flex-end;
+    gap: var(--pf-space-2);
+    width: 100%;
+    height: 100%;
+    padding: var(--pf-space-5);
+    box-sizing: border-box;
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            color-mix(in srgb, var(--pf-accent) 35%, transparent) 0,
+            transparent 45%
+        ),
+        var(--pf-hero-gradient);
+    color: #ffffff;
+}
+
+.pf-cert__fallback-icon {
+    margin-bottom: auto;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 2rem;
+}
+
+.pf-cert__fallback-title {
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.pf-cert__fallback-issuer {
+    color: #a8f0e1;
+    font-size: var(--pf-font-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 /* Afordancia de "abre em nova aba", no lugar do botao removido. */
@@ -2283,4 +2420,73 @@ html .pf-app .pf-topbar .sapMBtn:focus-visible > .sapMBtnInner::before {
     .pf-topbar__btn .sapMBtnContent {
         font-size: var(--pf-font-sm);
     }
+}
+
+/* Chips de tecnologia sobre o degrade do hero (claro e escuro). */
+.pf-hero__stack .pf-chip {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* "Ver projeto" no card de repositorio: pilula, como os demais botoes da marca. */
+.pf-repo .pf-repo__live.sapMBtn .sapMBtnInner {
+    border-radius: var(--pf-radius-pill);
+}
+
+/* ------------------------------ Organizacoes ------------------------------ */
+
+.pf-org {
+    display: flex;
+    flex-direction: column;
+    gap: var(--pf-space-3);
+    height: 100%;
+    padding: var(--pf-card-padding);
+    border: 1px solid var(--pf-border);
+    border-top: 3px solid var(--pf-primary);
+    border-radius: var(--pf-radius-lg);
+    background: var(--pf-surface);
+    box-shadow: var(--pf-shadow-1);
+}
+
+.pf-org__head {
+    gap: var(--pf-space-3);
+}
+
+.pf-org .pf-org__avatar {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 auto;
+    border-radius: var(--pf-radius-md);
+    object-fit: cover;
+}
+
+.pf-org__name {
+    color: var(--pf-text);
+    font-size: var(--pf-font-md);
+    font-weight: 700;
+}
+
+.pf-org__login {
+    color: var(--pf-text-muted);
+    font-size: var(--pf-font-xs);
+}
+
+.pf-org__actions {
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+    margin-top: auto;
+}
+
+/* Etiqueta do dono quando o repositorio e de uma organizacao. */
+.pf-repo__owner {
+    align-self: flex-start;
+    gap: 4px;
+    margin-top: 2px;
+    padding: 1px 8px;
+    border-radius: var(--pf-radius-pill);
+    background: var(--pf-primary-soft);
+    color: var(--pf-primary);
+    font-size: 0.68rem;
+    font-weight: 700;
 }
