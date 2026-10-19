@@ -1,29 +1,9 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-19T16:17:11.295Z",
-  "repoCount": 58,
+  "syncedAt": "2026-10-19T16:38:33.411Z",
+  "repoCount": 56,
   "repos": [
-    {
-      "name": ".github",
-      "url": "https://github.com/ExpenseManagerAPP/.github",
-      "description": "Expense Manager App",
-      "stars": 0,
-      "forks": 0,
-      "pushedAt": "2026-10-19T15:44:31Z",
-      "owner": "ExpenseManagerAPP"
-    },
-    {
-      "name": ".github",
-      "url": "https://github.com/Bendita-Look/.github",
-      "description": "Bendita Look Store",
-      "stars": 0,
-      "forks": 0,
-      "pushedAt": "2026-10-19T15:35:46Z",
-      "homepage": "https://bendita-look.github.io",
-      "siteUrl": "https://bendita-look.github.io",
-      "owner": "Bendita-Look"
-    },
     {
       "name": "expensemanagerapp.github.io",
       "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp.github.io",
@@ -549,7 +529,7 @@
       "url": "https://github.com/ExpenseManagerAPP",
       "avatarUrl": "https://avatars.githubusercontent.com/u/344017901?v=4",
       "siteUrl": "https://expensemanagerapp.github.io/",
-      "repoCount": 3
+      "repoCount": 2
     },
     {
       "login": "Bendita-Look",
@@ -558,7 +538,7 @@
       "url": "https://github.com/Bendita-Look",
       "avatarUrl": "https://avatars.githubusercontent.com/u/343062941?v=4",
       "siteUrl": "https://bendita-look.github.io/",
-      "repoCount": 3
+      "repoCount": 2
     }
   ]
 }
