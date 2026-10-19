@@ -1,24 +1,16 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-19T14:55:18.319Z",
-  "repoCount": 57,
+  "syncedAt": "2026-10-19T16:02:20.423Z",
+  "repoCount": 56,
   "repos": [
-    {
-      "name": "DaviCastr",
-      "url": "https://github.com/DaviCastr/DaviCastr",
-      "description": "Olá eu sou Davi Castro",
-      "stars": 0,
-      "forks": 0,
-      "pushedAt": "2026-10-19T14:32:58Z"
-    },
     {
       "name": "expensemanagerapp.github.io",
       "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp.github.io",
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-10-19T04:53:11Z",
+      "pushedAt": "2026-10-19T15:26:29Z",
       "homepage": "https://expensemanagerapp.github.io/",
       "siteUrl": "https://expensemanagerapp.github.io/",
       "owner": "ExpenseManagerAPP"
@@ -39,7 +31,7 @@
       "name": "bendita-look.github.io",
       "url": "https://github.com/Bendita-Look/bendita-look.github.io",
       "language": "TypeScript",
-      "stars": 0,
+      "stars": 1,
       "forks": 0,
       "pushedAt": "2026-10-18T18:19:42Z",
       "homepage": "https://bendita-look.github.io/",
