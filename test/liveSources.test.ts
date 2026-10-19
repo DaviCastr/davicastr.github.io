@@ -81,7 +81,9 @@ describe("mapCredlyBadges", () => {
     });
 
     it("ignora badge sem id ou sem nome, que viraria entrada instavel", () => {
-        const mapped = mapCredlyBadges({ data: [{ id: "sem-nome" }, badge("so-id", ""), badge("ok", "Curso")] });
+        const mapped = mapCredlyBadges({
+            data: [{ id: "sem-nome" }, badge("so-id", ""), badge("ok", "Curso")]
+        });
 
         expect(mapped.map((item) => item.id)).toEqual(["ok"]);
     });
@@ -136,9 +138,9 @@ describe("readCategory", () => {
 
 describe("readBadgeUrl", () => {
     it("prefere a URL por UUID, que abre a credencial no nome do titular", () => {
-        expect(readBadgeUrl({ id: "abc", badge_template: { url: "https://www.credly.com/org/x/badge/y" } })).toBe(
-            "https://www.credly.com/badges/abc"
-        );
+        expect(
+            readBadgeUrl({ id: "abc", badge_template: { url: "https://www.credly.com/org/x/badge/y" } })
+        ).toBe("https://www.credly.com/badges/abc");
     });
 
     it("converte a URL de organizacao quando nao ha id", () => {
@@ -178,25 +180,38 @@ describe("orderCertificates", () => {
     });
 
     it("coloca as SAP Certified primeiro, mesmo sendo mais antigas", () => {
-        const ordered = orderCertificates([cert("recente", "Curso novo", "2025-09-01"), cert("sap", "SAP Certified - Fiori", "2020-01-01")]);
+        const ordered = orderCertificates([
+            cert("recente", "Curso novo", "2025-09-01"),
+            cert("sap", "SAP Certified - Fiori", "2020-01-01")
+        ]);
 
         expect(ordered.map((item) => item.id)).toEqual(["sap", "recente"]);
     });
 
     it("dentro de cada grupo ordena da mais recente para a mais antiga", () => {
-        const ordered = orderCertificates([cert("antiga", "A", "2020-01-01"), cert("nova", "B", "2024-01-01"), cert("meio", "C", "2022-01-01")]);
+        const ordered = orderCertificates([
+            cert("antiga", "A", "2020-01-01"),
+            cert("nova", "B", "2024-01-01"),
+            cert("meio", "C", "2022-01-01")
+        ]);
 
         expect(ordered.map((item) => item.id)).toEqual(["nova", "meio", "antiga"]);
     });
 
     it("joga para o fim o que nao tem data, que senao ordenaria antes de tudo", () => {
-        const ordered = orderCertificates([cert("sem-data", "Sem data", ""), cert("com-data", "Com data", "2024-01-01")]);
+        const ordered = orderCertificates([
+            cert("sem-data", "Sem data", ""),
+            cert("com-data", "Com data", "2024-01-01")
+        ]);
 
         expect(ordered.map((item) => item.id)).toEqual(["com-data", "sem-data"]);
     });
 
     it("desempata pelo titulo para a lista nao oscilar entre carregamentos", () => {
-        const ordered = orderCertificates([cert("b", "Zebra", "2024-01-01"), cert("a", "Alfa", "2024-01-01")]);
+        const ordered = orderCertificates([
+            cert("b", "Zebra", "2024-01-01"),
+            cert("a", "Alfa", "2024-01-01")
+        ]);
 
         expect(ordered.map((item) => item.id)).toEqual(["a", "b"]);
     });
@@ -276,7 +291,14 @@ describe("toRepo", () => {
     });
 
     it("aceita homepage apenas com http(s)", () => {
-        const base = { name: "n", html_url: "https://github.com/a/n", stargazers_count: 0, forks_count: 0, fork: false, archived: false };
+        const base = {
+            name: "n",
+            html_url: "https://github.com/a/n",
+            stargazers_count: 0,
+            forks_count: 0,
+            fork: false,
+            archived: false
+        };
 
         expect(toRepo({ ...base, homepage: "https://davi.dev" }).homepage).toBe("https://davi.dev");
         expect(toRepo({ ...base, homepage: "javascript:alert(1)" }).homepage).toBeUndefined();
@@ -347,5 +369,78 @@ describe("mapGitHubInfo", () => {
 
         expect(info.syncedAt).toBeTruthy();
         expect(Number.isNaN(Date.parse(info.syncedAt as string))).toBe(false);
+    });
+});
+describe("organizacoes e repositorios ocultos", () => {
+    const user = { login: "DaviCastr", html_url: "https://github.com/DaviCastr" };
+    const repo = (owner: string, name: string, extra: Record<string, unknown> = {}) => ({
+        name,
+        html_url: `https://github.com/${owner}/${name}`,
+        fork: false,
+        archived: false,
+        stargazers_count: 0,
+        forks_count: 0,
+        ...extra
+    });
+    const org = {
+        login: "ExpenseManagerAPP",
+        name: "Expense Manager",
+        description: "Gestor de gastos",
+        html_url: "https://github.com/ExpenseManagerAPP",
+        blog: ""
+    };
+
+    it("oculta repositorios por nome ou dono/nome, sem diferenciar maiusculas", () => {
+        const info = mapGitHubInfo(
+            user,
+            [
+                repo("DaviCastr", "davicastr.github.io"),
+                repo("DaviCastr", "SAP-UI5-Portfolio"),
+                repo("DaviCastr", "outro")
+            ],
+            undefined,
+            { hiddenRepos: ["DAVICASTR.GITHUB.IO", "DaviCastr/sap-ui5-portfolio"] }
+        );
+
+        expect(info.repos?.map((item) => item.name)).toEqual(["outro"]);
+    });
+
+    it("inclui os repositorios da organizacao marcados com o dono", () => {
+        const info = mapGitHubInfo(
+            user,
+            [repo("DaviCastr", "meu", { pushed_at: "2026-10-01T00:00:00Z" })],
+            undefined,
+            {
+                organizations: [
+                    {
+                        org,
+                        repos: [
+                            repo("ExpenseManagerAPP", "expensemanagerapp", {
+                                pushed_at: "2026-10-18T00:00:00Z"
+                            }),
+                            repo("ExpenseManagerAPP", "expensemanagerapp.github.io", { has_pages: true })
+                        ]
+                    }
+                ]
+            }
+        );
+
+        expect(info.repos?.[0]).toMatchObject({ name: "expensemanagerapp", owner: "ExpenseManagerAPP" });
+        expect(info.repos?.find((item) => item.name === "meu")?.owner).toBeUndefined();
+        expect(info.organizations).toEqual([
+            expect.objectContaining({
+                login: "ExpenseManagerAPP",
+                name: "Expense Manager",
+                repoCount: 2,
+                // Repositorio <org>.github.io com Pages = site da organizacao, na raiz.
+                siteUrl: "https://expensemanagerapp.github.io/"
+            })
+        ]);
+    });
+
+    it("site do repositorio <dono>.github.io fica na raiz do dominio", () => {
+        expect(
+            toRepo(repo("ExpenseManagerAPP", "ExpenseManagerAPP.github.io", { has_pages: true })).siteUrl
+        ).toBe("https://expensemanagerapp.github.io/");
     });
 });

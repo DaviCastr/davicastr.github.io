@@ -88,6 +88,22 @@ export interface GitHubRepo {
     homepage?: string;
     /** Site publicado (homepage ou GitHub Pages) - botao "Ver projeto". */
     siteUrl?: string;
+    /** Dono quando NAO e o usuario (repositorio de uma organizacao). */
+    owner?: string;
+}
+
+/** Organizacao do GitHub com projetos pessoais (ver tools/github/config.json). */
+export interface GitHubOrg {
+    login: string;
+    /** Nome de exibicao ("Expense Manager"); sem ele, usa o login. */
+    name?: string;
+    description?: string;
+    /** Pagina da organizacao no GitHub. */
+    url: string;
+    avatarUrl?: string;
+    /** Site da organizacao (campo "blog" ou o repositorio <org>.github.io). */
+    siteUrl?: string;
+    repoCount: number;
 }
 
 /** Dados do GitHub usados na aba de projetos (preenchidos pelo sync). */
@@ -100,8 +116,10 @@ export interface GitHubInfo {
     syncedAt?: string;
     /** Total de repositorios publicos sincronizados. */
     repoCount?: number;
-    /** Repositorios proprios, sem fork e sem arquivado. */
+    /** Repositorios do usuario e das organizacoes, sem fork, arquivado ou oculto. */
     repos?: GitHubRepo[];
+    /** Organizacoes com projetos pessoais. */
+    organizations?: GitHubOrg[];
 }
 
 /** Bloco principal do portfolio: quem e o Davi. */

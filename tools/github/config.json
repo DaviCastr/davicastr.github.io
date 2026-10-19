@@ -1,0 +1,6 @@
+{
+  "$comment": "Configuracao do npm run sync:github. organizations: organizacoes com projetos pessoais (alem das que tiverem participacao publica). hiddenRepos: repositorios que nao aparecem no portfolio, por nome ou dono/nome.",
+  "user": "DaviCastr",
+  "organizations": ["ExpenseManagerAPP"],
+  "hiddenRepos": ["davicastr.github.io", "SAP-UI5-Portfolio"]
+}

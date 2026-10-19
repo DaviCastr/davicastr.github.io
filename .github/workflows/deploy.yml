@@ -1,13 +1,12 @@
 name: Deploy UI5 App to GitHub Pages
 
-# Publica o `dist` com as actions OFICIAIS do GitHub Pages (upload-pages-artifact
-# + deploy-pages). Requer, uma unica vez, em Settings > Pages > Build and
-# deployment > Source: "GitHub Actions".
+# Publica o `dist` na branch `gh-pages`, que e a fonte do GitHub Pages deste
+# repositorio (Settings > Pages > Deploy from a branch: gh-pages / root).
 #
-# Por que nao publicar numa branch gh-pages: nesse modo o Pages passa os
+# O arquivo `.nojekyll` no dist e obrigatorio: sem ele o Pages passa os
 # arquivos pelo Jekyll, que IGNORA pastas e arquivos iniciados por "_" - e o
-# bundle do jsPDF tem `thirdparty/_dynamics/` e `_commonjsHelpers.js`. O PDF
-# quebraria no site publicado. O artefato do deploy-pages e servido como esta.
+# bundle do jsPDF tem `thirdparty/_dynamics/` e `_commonjsHelpers.js` (o
+# "Ver PDF" quebraria no site).
 #
 # Os certificados (Credly) e repositorios (GitHub) sao buscados AQUI, no build,
 # e nao no navegador: o credly.com nao envia CORS. O agendamento diario
@@ -23,10 +22,9 @@ on:
         - cron: "30 6 * * *"
     workflow_dispatch:
 
+# Escrita no repositorio: o deploy faz push na branch gh-pages.
 permissions:
-    contents: read
-    pages: write
-    id-token: write
+    contents: write
 
 # Um deploy de cada vez; um novo push cancela o build anterior ainda em curso.
 concurrency:
@@ -34,7 +32,7 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    build:
+    build-and-deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -73,21 +71,13 @@ jobs:
               run: npm run build
 
             # Seguro extra caso o Pages volte a ser servido por branch.
+            # Desliga o Jekyll no Pages (ver comentario no topo).
             - name: Disable Jekyll
               run: touch dist/.nojekyll
 
-            - name: Upload Pages artifact
-              uses: actions/upload-pages-artifact@v3
+            - name: Deploy to gh-pages
+              uses: JamesIves/github-pages-deploy-action@v4
               with:
-                  path: dist
-
-    deploy:
-        needs: build
-        runs-on: ubuntu-latest
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
-        steps:
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v4
+                  folder: dist
+                  branch: gh-pages
+                  clean: true

@@ -7,6 +7,7 @@ import type {
     Certificate,
     Experience,
     ExternalLink,
+    GitHubOrg,
     GitHubRepo,
     Project,
     SectionDefinition,
@@ -89,6 +90,8 @@ export interface PortfolioViewData {
      * mao em `projects.json`, que contam a historia de cada trabalho.
      */
     recentRepos: GitHubRepo[];
+    /** Organizacoes com projetos pessoais (github.json, ver tools/github/config.json). */
+    githubOrgs: GitHubOrg[];
     /**
      * Projetos escritos a mao (projects.json), mais recentes, para exibir na
      * Home como "Work you can open" (historias de trabalho reais).
@@ -219,6 +222,7 @@ export function buildViewData(service: ContentService): PortfolioViewData {
         featuredProjects: service.featuredProjects.slice(0, 6),
         recentProjects: mostRecentProjects(content.projects, 3),
         recentRepos: mostRecentRepos(content.github?.repos ?? [], 3),
+        githubOrgs: content.github?.organizations ?? [],
         recentCertificates: service.featuredCertificates.slice(0, 6),
         softSkills: content.skills.filter(isSoftSkill),
         hardSkills: content.skills.filter((skill) => !isSoftSkill(skill)),

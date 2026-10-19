@@ -1,13 +1,33 @@
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 import type { GitHubInfo, Project } from "../../webapp/model/types";
 import {
     GITHUB_API,
     mapGitHubInfo,
     repoKey,
     toDate,
+    type GhOrg,
     type GhRepo,
     type GhUser
 } from "../../webapp/model/data/liveSources";
-import { readContentFile, readFlag, run, writeContentFile } from "../shared/nodeContent";
+import { readContentFile, readFlag, REPO_ROOT, run, writeContentFile } from "../shared/nodeContent";
+
+/** tools/github/config.json: usuario, organizacoes e repositorios ocultos. */
+interface SyncConfig {
+    user?: string;
+    organizations?: string[];
+    hiddenRepos?: string[];
+}
+
+async function readConfig(): Promise<SyncConfig> {
+    try {
+        return JSON.parse(
+            await readFile(resolve(REPO_ROOT, "tools/github/config.json"), "utf8")
+        ) as SyncConfig;
+    } catch {
+        return {};
+    }
+}
 
 /**
  * Sincroniza os dados publicos do GitHub.
@@ -17,11 +37,15 @@ import { readContentFile, readFlag, run, writeContentFile } from "../shared/node
  *   npm run sync:github -- --user=DaviCastr --token=$GITHUB_TOKEN
  *
  * Faz tres coisas:
- *   1. grava webapp/content/github.json (perfil, ultima sincronizacao e a lista
- *      de repositorios, que e o que a aba de Projetos renderiza);
+ *   1. grava webapp/content/github.json (perfil, ultima sincronizacao, a lista
+ *      de repositorios do usuario e das organizacoes e as organizacoes);
  *   2. atualiza estrelas/forks/linguagem dos itens de webapp/content/projects.json
  *      cujo campo "repo" aponte para um repositorio do usuario;
  *   3. mantem `repoCount` igual ao tamanho da lista gravada.
+ *
+ * Organizacoes e repositorios ocultos vem de tools/github/config.json. A lista
+ * de organizacoes e somada as que tiverem participacao PUBLICA (a API publica
+ * nao enxerga participacao privada, que e o padrao do GitHub).
  *
  * Sem token usa 60 requisicoes/hora da API publica - suficiente para uso local.
  *
@@ -54,8 +78,9 @@ async function main(): Promise<void> {
     const token = readFlag("token") ?? process.env.GITHUB_TOKEN;
     const userArg = readFlag("user");
 
+    const config = await readConfig();
     const current = await readContentFile<GitHubInfo>("github.json", {} as GitHubInfo);
-    const user = userArg ?? current.login;
+    const user = userArg ?? config.user ?? current.login;
     if (!user) {
         throw new Error("informe o usuario: npm run sync:github -- --user=DaviCastr");
     }
@@ -65,13 +90,43 @@ async function main(): Promise<void> {
         getJson<GhRepo[]>(`${GITHUB_API}/users/${user}/repos?per_page=100&sort=pushed`, token)
     ]);
 
-    const github = mapGitHubInfo(profile, repos);
+    // Organizacoes: as da configuracao + as com participacao publica.
+    const publicOrgs = await getJson<{ login: string }[]>(`${GITHUB_API}/users/${user}/orgs`, token).catch(
+        () => []
+    );
+    const orgLogins = [
+        ...new Map(
+            [...(config.organizations ?? []), ...publicOrgs.map((org) => org.login)].map((login) => [
+                login.toLowerCase(),
+                login
+            ])
+        ).values()
+    ];
+    const organizations = await Promise.all(
+        orgLogins.map(async (login) => ({
+            org: await getJson<GhOrg>(`${GITHUB_API}/orgs/${login}`, token),
+            repos: await getJson<GhRepo[]>(
+                `${GITHUB_API}/orgs/${login}/repos?per_page=100&sort=pushed`,
+                token
+            )
+        }))
+    );
+
+    const github = mapGitHubInfo(profile, repos, undefined, {
+        organizations,
+        hiddenRepos: config.hiddenRepos
+    });
     // O indice usa o payload cru (e nao o `github.repos`, que so tem `pushedAt`
     // em YYYY-MM): o `updatedAt` do projeto precisa do dia, nao so do mes.
     const byKey = new Map(
-        repos.filter((repo) => !repo.fork && !repo.archived).map((repo) => [repoKey(repo.html_url) as string, repo])
+        repos
+            .filter((repo) => !repo.fork && !repo.archived)
+            .map((repo) => [repoKey(repo.html_url) as string, repo])
     );
-    console.log(`${github.repoCount} repositorio(s) proprio(s) de ${profile.login}.`);
+    console.log(
+        `${github.repoCount} repositorio(s) listado(s) de ${profile.login}` +
+            (organizations.length ? ` e de ${organizations.map(({ org }) => org.login).join(", ")}.` : ".")
+    );
 
     await writeContentFile("github.json", github);
 

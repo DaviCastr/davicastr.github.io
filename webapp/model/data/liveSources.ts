@@ -1,4 +1,4 @@
-import type { Certificate, GitHubInfo, GitHubRepo } from "../types";
+import type { Certificate, GitHubInfo, GitHubOrg, GitHubRepo } from "../types";
 
 /**
  * Conversao dos payloads externos (Credly e GitHub) para os tipos do portfolio.
@@ -171,10 +171,22 @@ export interface GhUser {
     html_url: string;
 }
 
+/** Campos da organizacao do GitHub usados aqui. */
+export interface GhOrg {
+    login: string;
+    name?: string | null;
+    description?: string | null;
+    html_url: string;
+    avatar_url?: string;
+    blog?: string | null;
+    public_repos?: number;
+}
+
 /** Campos do repositorio do GitHub usados aqui. */
 export interface GhRepo {
     name: string;
     html_url: string;
+    owner?: { login: string };
     fork: boolean;
     archived: boolean;
     stargazers_count: number;
@@ -219,8 +231,14 @@ export function siteUrlOf(repo: GhRepo, homepage: string | undefined): string | 
     if (homepage) {
         return homepage;
     }
-    const owner = /github\.com\/([^/]+)\//i.exec(repo.html_url ?? "")?.[1];
-    return repo.has_pages && owner ? `https://${owner.toLowerCase()}.github.io/${repo.name}/` : undefined;
+    const owner = /github\.com\/([^/]+)\//i.exec(repo.html_url ?? "")?.[1]?.toLowerCase();
+    if (!repo.has_pages || !owner) {
+        return undefined;
+    }
+    // O repositorio <dono>.github.io e publicado na RAIZ do dominio.
+    return repo.name.toLowerCase() === `${owner}.github.io`
+        ? `https://${owner}.github.io/`
+        : `https://${owner}.github.io/${repo.name}/`;
 }
 
 /**
@@ -253,14 +271,75 @@ export function toRepo(repo: GhRepo): GitHubRepo {
  * Fork e repositorio arquivado ficam de fora: nenhum dos dois e trabalho do
  * portfolio (o primeiro e codigo de outra pessoa, o segundo esta parado).
  */
-export function mapGitHubInfo(user: GhUser, repos: GhRepo[], syncedAt?: string): GitHubInfo {
-    const own = (repos ?? []).filter((repo) => !repo.fork && !repo.archived);
+/** Opcoes do mapeamento: organizacoes e repositorios ocultos (tools/github/config.json). */
+export interface GitHubMapOptions {
+    /** Cada organizacao com seus repositorios. */
+    organizations?: { org: GhOrg; repos: GhRepo[] }[];
+    /**
+     * Repositorios que nao aparecem no portfolio: nome ("SAP-UI5-Portfolio") ou
+     * "dono/nome". Sem diferenciar maiusculas.
+     */
+    hiddenRepos?: string[];
+}
+
+/** Repositorio deve aparecer? (sem fork, sem arquivado e fora da lista de ocultos). */
+function isListed(repo: GhRepo, hidden: Set<string>): boolean {
+    const key = repoKey(repo.html_url)?.toLowerCase();
+    return !repo.fork && !repo.archived && !hidden.has(repo.name.toLowerCase()) && !(key && hidden.has(key));
+}
+
+/**
+ * Organizacao no formato do portfolio. O site e o "blog" cadastrado ou, sem
+ * ele, o repositorio <org>.github.io quando tem Pages ativo.
+ */
+export function toOrg(org: GhOrg, repos: GhRepo[], listedCount: number): GitHubOrg {
+    const blog = optional(org.blog ?? undefined);
+    const pagesRepo = repos.find(
+        (repo) => repo.name.toLowerCase() === `${org.login.toLowerCase()}.github.io` && repo.has_pages
+    );
+    return {
+        login: org.login,
+        name: optional(org.name ?? undefined),
+        description: optional(org.description ?? undefined),
+        url: org.html_url,
+        avatarUrl: org.avatar_url,
+        siteUrl:
+            blog && /^https?:\/\//i.test(blog)
+                ? blog
+                : pagesRepo
+                  ? siteUrlOf(pagesRepo, undefined)
+                  : undefined,
+        repoCount: listedCount
+    };
+}
+
+export function mapGitHubInfo(
+    user: GhUser,
+    repos: GhRepo[],
+    syncedAt?: string,
+    options: GitHubMapOptions = {}
+): GitHubInfo {
+    const hidden = new Set((options.hiddenRepos ?? []).map((name) => name.toLowerCase()));
+    const own = (repos ?? []).filter((repo) => isListed(repo, hidden)).map(toRepo);
+
+    // Repositorios das organizacoes entram na mesma lista, marcados com o dono:
+    // mover um repositorio para a organizacao nao o tira do portfolio.
+    const organizations: GitHubOrg[] = [];
+    const orgRepos: GitHubRepo[] = [];
+    (options.organizations ?? []).forEach(({ org, repos: list }) => {
+        const listed = (list ?? []).filter((repo) => isListed(repo, hidden));
+        orgRepos.push(...listed.map((repo) => ({ ...toRepo(repo), owner: org.login })));
+        organizations.push(toOrg(org, list ?? [], listed.length));
+    });
+
+    const all = [...own, ...orgRepos];
     return {
         login: user.login,
         profileUrl: user.html_url,
         syncedAt: syncedAt ?? new Date().toISOString(),
-        repoCount: own.length,
+        repoCount: all.length,
         // Do push mais recente para o mais antigo (mesma ordem da Home).
-        repos: own.map(toRepo).sort((a, b) => (b.pushedAt ?? "").localeCompare(a.pushedAt ?? ""))
+        repos: all.sort((a, b) => (b.pushedAt ?? "").localeCompare(a.pushedAt ?? "")),
+        ...(options.organizations ? { organizations } : {})
     };
 }

@@ -14,6 +14,10 @@
             </HBox>
             <VBox class="pf-gap-0">
                 <Text class="pf-repo__name" text="{name}"/>
+                <HBox alignItems="Center" class="pf-repo__owner" visible="{= !!${owner} }">
+                    <core:Icon src="sap-icon://group" class="pf-text-xs"/>
+                    <Text text="{owner}"/>
+                </HBox>
                 <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small" visible="{= !!${pushedAt}}">
                     <core:Icon src="sap-icon://history" class="pf-text-xs"/>
                     <Text text="{path: 'pushedAt', formatter: '.formatter.monthYear'}"/>

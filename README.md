@@ -1,5 +1,5 @@
 # SAP-UI5-Portfolio
-   
+
 Portfolio profissional em **SAPUI5 (OpenUI5) + TypeScript**, bilíngue (PT/EN), com tema
 claro/escuro, currículo em PDF gerado a partir dos dados e sincronização automática de
 certificações (Credly) e do GitHub.
@@ -10,7 +10,7 @@ Tudo o que aparece na tela vem de arquivos JSON versionados: para atualizar o po
 ---
 
 ## Sumario
- 
+
 - [Como rodar](#como-rodar)
 - [Scripts](#scripts)
 - [Estrutura do projeto](#estrutura-do-projeto)
@@ -236,6 +236,14 @@ npm run sync:github
 npm run sync:github -- --user=DaviCastr --token=$GITHUB_TOKEN
 ```
 
+Configuracao em `tools/github/config.json`:
+
+- `organizations`: organizacoes com projetos pessoais. Os repositorios delas entram na
+  lista (com a etiqueta da organizacao) e cada uma ganha um card na secao "Organizacoes".
+  Organizacoes com participacao **publica** entram sozinhas; as privadas (padrao do
+  GitHub) precisam estar nesta lista, porque a API publica nao as enxerga.
+- `hiddenRepos`: repositorios que nao aparecem no portfolio, por nome ou `dono/nome`.
+
 - Grava `content/github.json` (perfil, data da sincronizacao, nº de repositorios).
 - Atualiza `stars`, `forks`, `language` e `updatedAt` dos projetos cujo `repo` aponte para
   um repositorio do usuario.
@@ -270,12 +278,11 @@ O workflow `.github/workflows/deploy.yml` roda a cada push na `main`, diariament
 e sob demanda (aba Actions > "Run workflow"): sincroniza GitHub e Credly, valida o
 conteudo, gera o PDF, faz o build e publica o `dist` com as actions oficiais do Pages.
 
-**Configuracao unica no repositorio:** Settings > Pages > Build and deployment >
-Source = **GitHub Actions**. Com "Deploy from a branch" o Pages publica a branch
-escolhida pelo Jekyll - na `main` aparece o README no lugar do app, e o Jekyll
-ignora pastas iniciadas por `_` (o bundle do jsPDF usa `thirdparty/_dynamics/`).
+O workflow publica o `dist` na branch **`gh-pages`** (Settings > Pages > Deploy from a
+branch: `gh-pages` / root) com um arquivo `.nojekyll`: sem ele o Jekyll ignora pastas
+iniciadas por `_` (o bundle do jsPDF usa `thirdparty/_dynamics/`).
 
-Site: https://davicastr.github.io/SAP-UI5-Portfolio/
+Site: https://davicastr.github.io/
 
 ## Testes e qualidade
 

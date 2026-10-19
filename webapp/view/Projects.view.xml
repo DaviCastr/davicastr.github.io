@@ -65,7 +65,55 @@
                     <Text text="{i18n>projects.empty}"/>
                 </VBox>
 
-                <!-- Repositorios do GitHub (raspados por npm run sync:github) -->
+                <!--
+                    Organizacoes com projetos pessoais (tools/github/config.json).
+                    Os repositorios delas tambem entram na lista abaixo, com a
+                    etiqueta da organizacao.
+                -->
+                <VBox class="pf-stack pf-gap-4" visible="{= ${/githubOrgs}.length > 0 }">
+                    <VBox class="pf-page__head">
+                        <Text class="pf-eyebrow" text="{i18n>projects.orgsEyebrow}"/>
+                        <Title level="H2" class="pf-h2" text="{i18n>projects.orgsTitle}"/>
+                        <Text class="pf-lead" text="{i18n>projects.orgsSubtitle}"/>
+                    </VBox>
+
+                    <HBox class="pf-grid pf-grid--repos" items="{path: '/githubOrgs', templateShareable: true}">
+                        <VBox class="pf-org">
+                            <HBox alignItems="Center" class="pf-org__head">
+                                <Image
+                                    class="pf-org__avatar"
+                                    src="{avatarUrl}"
+                                    densityAware="false"
+                                    alt="{login}"
+                                    visible="{= !!${avatarUrl} }"/>
+                                <VBox>
+                                    <Text class="pf-org__name" text="{= ${name} || ${login} }"/>
+                                    <Text class="pf-org__login" text="@{login}"/>
+                                </VBox>
+                            </HBox>
+                            <Text class="pf-repo__desc" text="{description}" visible="{= !!${description} }"/>
+                            <HBox alignItems="Center" class="pf-gap-1 pf-muted pf-small">
+                                <core:Icon src="sap-icon://folder" class="pf-text-xs"/>
+                                <Text text="{parts: ['i18n>projects.orgRepos', 'repoCount'], formatter: '.formatter.count'}"/>
+                            </HBox>
+                            <HBox class="pf-org__actions">
+                                <Button
+                                    type="Ghost"
+                                    icon="sap-icon://source-code"
+                                    text="{i18n>projects.orgOpen}"
+                                    press="onLinkPress"/>
+                                <Button
+                                    type="Emphasized"
+                                    icon="sap-icon://world"
+                                    text="{i18n>project.viewLive}"
+                                    press="onSitePress"
+                                    visible="{= !!${siteUrl} }"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Repositorios do GitHub (usuario + organizacoes, do sync) -->
                 <VBox
                     class="pf-stack pf-gap-4"
                     visible="{= ${content>/github/repos} ? ${content>/github/repos}.length > 0 : false }">

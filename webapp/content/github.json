@@ -1,19 +1,28 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-19T03:56:04.019Z",
-  "repoCount": 57,
+  "syncedAt": "2026-10-19T04:39:20.248Z",
+  "repoCount": 56,
   "repos": [
     {
-      "name": "davicastr.github.io",
-      "url": "https://github.com/DaviCastr/davicastr.github.io",
-      "description": "Personal Portfolio",
+      "name": "expensemanagerapp.github.io",
+      "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp.github.io",
       "language": "TypeScript",
       "stars": 0,
       "forks": 0,
-      "pushedAt": "2026-10-19T02:54:46Z",
-      "homepage": "https://davicastr.github.io/",
-      "siteUrl": "https://davicastr.github.io/"
+      "pushedAt": "2026-10-19T04:03:39Z",
+      "homepage": "https://expensemanagerapp.github.io/",
+      "siteUrl": "https://expensemanagerapp.github.io/",
+      "owner": "ExpenseManagerAPP"
+    },
+    {
+      "name": "expensemanagerapp",
+      "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp",
+      "language": "TypeScript",
+      "stars": 0,
+      "forks": 0,
+      "pushedAt": "2026-10-19T02:34:39Z",
+      "owner": "ExpenseManagerAPP"
     },
     {
       "name": "SAP-UI5-BenditaLook",
@@ -47,28 +56,6 @@
       "pushedAt": "2026-10-18T15:07:14Z",
       "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
       "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
-    },
-    {
-      "name": "SAP-UI5-Portfolio",
-      "url": "https://github.com/DaviCastr/SAP-UI5-Portfolio",
-      "description": "My personal portfolio",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-18T10:06:23Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-Portfolio/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-Portfolio/"
-    },
-    {
-      "name": "SAP-CAP-BenditaLook",
-      "url": "https://github.com/DaviCastr/SAP-CAP-BenditaLook",
-      "description": "Bendita Look Store",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-16T00:14:32Z",
-      "homepage": "https://bendita-look.github.io",
-      "siteUrl": "https://bendita-look.github.io"
     },
     {
       "name": "DaviCastr",
@@ -525,6 +512,17 @@
       "pushedAt": "2023-10-09T21:11:57Z",
       "homepage": "https://chat-dos-estagiarios.vercel.app",
       "siteUrl": "https://chat-dos-estagiarios.vercel.app"
+    }
+  ],
+  "organizations": [
+    {
+      "login": "ExpenseManagerAPP",
+      "name": "Expense Manager",
+      "description": "Gestor de gastos - Cartões e dívidas",
+      "url": "https://github.com/ExpenseManagerAPP",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/344017901?v=4",
+      "siteUrl": "https://expensemanagerapp.github.io/",
+      "repoCount": 2
     }
   ]
 }
