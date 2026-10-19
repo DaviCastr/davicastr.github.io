@@ -278,9 +278,10 @@ O workflow `.github/workflows/deploy.yml` roda a cada push na `main`, diariament
 e sob demanda (aba Actions > "Run workflow"): sincroniza GitHub e Credly, valida o
 conteudo, gera o PDF, faz o build e publica o `dist` com as actions oficiais do Pages.
 
-O workflow publica o `dist` na branch **`gh-pages`** (Settings > Pages > Deploy from a
-branch: `gh-pages` / root) com um arquivo `.nojekyll`: sem ele o Jekyll ignora pastas
-iniciadas por `_` (o bundle do jsPDF usa `thirdparty/_dynamics/`).
+**Configuracao unica no repositorio:** Settings > Pages > Build and deployment >
+Source = **GitHub Actions** (e, em Settings > Environments > github-pages, a branch
+`main` liberada para deploy). Com "Deploy from a branch" o Pages passa os arquivos pelo
+Jekyll, que ignora pastas iniciadas por `_` (o bundle do jsPDF usa `thirdparty/_dynamics/`).
 
 Site: https://davicastr.github.io/
 
