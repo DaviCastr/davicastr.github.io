@@ -1,7 +1,7 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-20T10:59:30.744Z",
+  "syncedAt": "2026-10-21T11:16:06.386Z",
   "repoCount": 56,
   "repos": [
     {
@@ -10,21 +10,10 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-20T03:05:56Z",
+      "pushedAt": "2026-10-21T00:53:20Z",
       "homepage": "https://expensemanagerapp.github.io/",
       "siteUrl": "https://expensemanagerapp.github.io/",
       "owner": "ExpenseManagerAPP"
-    },
-    {
-      "name": "SAP-CAP-ExpenseManager",
-      "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
-      "description": "Projeto pessoal - Gestor de Gasto em CAP com Typescript e MvC",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-20T02:41:39Z",
-      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
-      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
     {
       "name": "expensemanagerapp",
@@ -33,7 +22,7 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-20T02:40:15Z",
+      "pushedAt": "2026-10-21T00:25:01Z",
       "homepage": "https://expensemanagerapp.github.io/",
       "siteUrl": "https://expensemanagerapp.github.io/",
       "owner": "ExpenseManagerAPP"
@@ -45,10 +34,21 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 0,
-      "pushedAt": "2026-10-20T02:39:14Z",
+      "pushedAt": "2026-10-21T00:24:19Z",
       "homepage": "https://bendita-look.github.io",
       "siteUrl": "https://bendita-look.github.io",
       "owner": "Bendita-Look"
+    },
+    {
+      "name": "SAP-CAP-ExpenseManager",
+      "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
+      "description": "Projeto pessoal - Gestor de Gasto em CAP com Typescript e MvC",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-20T02:41:39Z",
+      "homepage": "https://davicastr.github.io/SAP-UI5-ExpenseManager/",
+      "siteUrl": "https://davicastr.github.io/SAP-UI5-ExpenseManager/"
     },
     {
       "name": "bendita-look.github.io",
