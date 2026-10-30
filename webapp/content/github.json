@@ -1,9 +1,33 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-10-29T12:23:26.281Z",
+  "syncedAt": "2026-10-30T12:13:45.112Z",
   "repoCount": 56,
   "repos": [
+    {
+      "name": "bendita-look",
+      "url": "https://github.com/Bendita-Look/bendita-look",
+      "description": "Bendita Look Store",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-29T18:22:44Z",
+      "homepage": "https://bendita-look.github.io",
+      "siteUrl": "https://bendita-look.github.io",
+      "owner": "Bendita-Look"
+    },
+    {
+      "name": "expensemanagerapp",
+      "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp",
+      "description": "Expense Manager App",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-10-29T18:21:52Z",
+      "homepage": "https://expensemanagerapp.github.io/",
+      "siteUrl": "https://expensemanagerapp.github.io/",
+      "owner": "ExpenseManagerAPP"
+    },
     {
       "name": "SAP-CAP-ExpenseManager",
       "url": "https://github.com/DaviCastr/SAP-CAP-ExpenseManager",
@@ -25,30 +49,6 @@
       "homepage": "https://expensemanagerapp.github.io/",
       "siteUrl": "https://expensemanagerapp.github.io/",
       "owner": "ExpenseManagerAPP"
-    },
-    {
-      "name": "expensemanagerapp",
-      "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp",
-      "description": "Expense Manager App",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-21T00:25:01Z",
-      "homepage": "https://expensemanagerapp.github.io/",
-      "siteUrl": "https://expensemanagerapp.github.io/",
-      "owner": "ExpenseManagerAPP"
-    },
-    {
-      "name": "bendita-look",
-      "url": "https://github.com/Bendita-Look/bendita-look",
-      "description": "Bendita Look Store",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-21T00:24:19Z",
-      "homepage": "https://bendita-look.github.io",
-      "siteUrl": "https://bendita-look.github.io",
-      "owner": "Bendita-Look"
     },
     {
       "name": "bendita-look.github.io",
