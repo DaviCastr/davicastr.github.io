@@ -1,9 +1,20 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-11-06T13:50:17.492Z",
+  "syncedAt": "2026-11-07T12:33:36.185Z",
   "repoCount": 56,
   "repos": [
+    {
+      "name": "bendita-look.github.io",
+      "url": "https://github.com/Bendita-Look/bendita-look.github.io",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-11-06T17:46:12Z",
+      "homepage": "https://bendita-look.github.io/",
+      "siteUrl": "https://bendita-look.github.io/",
+      "owner": "Bendita-Look"
+    },
     {
       "name": "bendita-look",
       "url": "https://github.com/Bendita-Look/bendita-look",
@@ -14,17 +25,6 @@
       "pushedAt": "2026-11-05T01:08:29Z",
       "homepage": "https://bendita-look.github.io",
       "siteUrl": "https://bendita-look.github.io",
-      "owner": "Bendita-Look"
-    },
-    {
-      "name": "bendita-look.github.io",
-      "url": "https://github.com/Bendita-Look/bendita-look.github.io",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-11-04T19:55:52Z",
-      "homepage": "https://bendita-look.github.io/",
-      "siteUrl": "https://bendita-look.github.io/",
       "owner": "Bendita-Look"
     },
     {
