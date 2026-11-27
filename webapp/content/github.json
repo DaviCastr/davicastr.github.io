@@ -1,9 +1,21 @@
 {
   "login": "DaviCastr",
   "profileUrl": "https://github.com/DaviCastr",
-  "syncedAt": "2026-11-26T16:30:09.926Z",
+  "syncedAt": "2026-11-27T16:15:42.500Z",
   "repoCount": 56,
   "repos": [
+    {
+      "name": "expensemanagerapp",
+      "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp",
+      "description": "Expense Manager App",
+      "language": "TypeScript",
+      "stars": 1,
+      "forks": 0,
+      "pushedAt": "2026-11-27T13:07:06Z",
+      "homepage": "https://expensemanagerapp.github.io/",
+      "siteUrl": "https://expensemanagerapp.github.io/",
+      "owner": "ExpenseManagerAPP"
+    },
     {
       "name": "bendita-look.github.io",
       "url": "https://github.com/Bendita-Look/bendita-look.github.io",
@@ -26,18 +38,6 @@
       "homepage": "https://bendita-look.github.io",
       "siteUrl": "https://bendita-look.github.io",
       "owner": "Bendita-Look"
-    },
-    {
-      "name": "expensemanagerapp",
-      "url": "https://github.com/ExpenseManagerAPP/expensemanagerapp",
-      "description": "Expense Manager App",
-      "language": "TypeScript",
-      "stars": 1,
-      "forks": 0,
-      "pushedAt": "2026-10-29T18:21:52Z",
-      "homepage": "https://expensemanagerapp.github.io/",
-      "siteUrl": "https://expensemanagerapp.github.io/",
-      "owner": "ExpenseManagerAPP"
     },
     {
       "name": "SAP-CAP-ExpenseManager",
